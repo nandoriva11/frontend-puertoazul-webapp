@@ -1,0 +1,22 @@
+<div class="" id="theme">
+    <div class="wrapper">
+        <!--  <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="/assets/img/Educacion21Logo.png" alt="AdminLTELogo" height="60" width="60" />
+      </div> -->
+        <app-header></app-header>
+        <app-sidebar></app-sidebar>
+
+        <div class="content-wrapper" style="min-height: 1416px">
+            <app-breadcrums></app-breadcrums>
+            
+                <!-- Main content -->
+                <router-outlet></router-outlet>
+            
+            <!-- /.content -->
+        </div>
+        <app-footer></app-footer>
+        <app-control-sidebar></app-control-sidebar>
+    </div>
+
+    <div id="sidebar-overlay" data-widget="pushmenu"></div>
+</div>

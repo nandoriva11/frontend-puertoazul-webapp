@@ -1,0 +1,227 @@
+<section class="content">
+    <div class="container-fluid ">
+        <div class="card card-info card-outline">
+            <div class="card-header text-center">
+                <h5 class="card-title m-0"><strong>{{ titulo }} <i class="fas fa-user-alt"></i></strong></h5>
+            </div>
+            <div class="card-body">
+
+
+                <form id="formEmpleado" [formGroup]="formEmpleado" (ngSubmit)="submit()">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Nombres: <strong class="text-danger">*</strong></label>
+                                <input type="text"
+                                    class="form-control animate__animated animate__fadeInUp animate__faster"
+                                    placeholder="Ingrese Nombres" formControlName="nombres"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('nombres', formEmpleado, formSubmited)}">
+                                <span class="error invalid-feedback">Por favor complete este campo.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Apellidos: <strong class="text-danger">*</strong> </label>
+                                <input type="text"
+                                    class="form-control animate__animated animate__fadeInUp animate__faster"
+                                    placeholder="Ingrese Apellidos" formControlName="apellidos"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('apellidos', formEmpleado, formSubmited)}">
+                                <span class="error invalid-feedback">Por favor complete este campo.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Tipo Documento: <strong class="text-danger">*</strong></label>
+                                <select
+                                    class="custom-select rounded-2 animate__animated animate__fadeInUp animate__faster"
+                                    formControlName="tipo_documento" (change)="activeNumDoc()"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('tipo_documento', formEmpleado, formSubmited)}"
+                                    [compareWith]="compareTipo">
+                                    <option [ngValue]="null">
+                                        <-- SELECCIONE TIPO DOC -->
+                                    </option>
+                                    <option *ngFor="let t of tipo_documento" [ngValue]="t">
+                                        {{t.nombre}}
+                                    </option>
+                                </select>
+                                <span class="error invalid-feedback">Por favor seleccione un tipo documento.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Num Documento: <strong class="text-danger">*</strong></label>
+                                <div class="spinner-border spinner-border-sm" role="status" *ngIf="spinnerDNI">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <input type="text"
+                                    class="form-control animate__animated animate__fadeInUp animate__faster"
+                                    placeholder="Número documento" formControlName="num_doc"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('num_doc', formEmpleado, formSubmited)}"
+                                    maxlength="11" (input)="existsUniqueCampDNI($event)">
+                                <span class="error invalid-feedback"
+                                    *ngIf="!this.formEmpleado.get('num_doc')?.getError('duplicate')">Por favor complete
+                                    este campo y que
+                                    sea valido.</span>
+                                <span class="error invalid-feedback"
+                                    *ngIf="this.formEmpleado.get('num_doc')?.getError('duplicate')">Este DNI ya se
+                                    encuentra en uso,
+                                    porfavor ingrese otro.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Genero: <strong class="text-danger">*</strong></label>
+                                <select
+                                    class="custom-select rounded-2 animate__animated animate__fadeInUp animate__faster"
+                                    formControlName="genero"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('genero', formEmpleado, formSubmited)}">
+                                    <option [ngValue]="null">
+                                        <-- SELECCIONE GENERO -->
+                                    </option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                </select>
+                                <span class="error invalid-feedback">Por favor seleccione un genero.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Estado Civil: <strong class="text-danger">*</strong></label>
+                                <select
+                                    class="custom-select rounded-2 animate__animated animate__fadeInUp animate__faster"
+                                    formControlName="estado_civil"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('estado_civil', formEmpleado, formSubmited)}">
+                                    <option [ngValue]="null">
+                                        <-- SELECCIONE ESTADO CIVIL -->
+                                    </option>
+                                    <option value="S">Soltero/a</option>
+                                    <option value="C">Casado/a</option>
+                                    <option value="D">Divorciado/a</option>
+                                    <option value="V">Viudo/a</option>
+                                </select>
+                                <span class="error invalid-feedback">Por favor seleccione estado civil.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Fecha Nacimiento</label>
+                                <input type="date"
+                                    class="form-control animate__animated animate__fadeInUp animate__faster"
+                                    placeholder="Fecha Nacimiento" formControlName="fecha_nac"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('fecha_nac', formEmpleado, formSubmited)}">
+                                <span class="error invalid-feedback">Por favor seleccione una fecha nacimiento..</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Telefono: <strong class="text-danger">*</strong></label>
+                                <input type="text"
+                                    class="form-control animate__animated animate__fadeInUp animate__faster"
+                                    placeholder="Ingrese Telefono" formControlName="telefono"
+                                    data-inputmask="mask': ['999-999-999 [x99999]', '+099 99 99 9999[9]-999']"
+                                    data-mask="" inputmode="text"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('telefono', formEmpleado, formSubmited)}">
+
+                                <span class="error invalid-feedback">Por favor complete este campo.</span>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Email: <strong class="text-danger">*</strong></label>
+                                <input type="text"
+                                    class="form-control animate__animated animate__fadeInUp animate__faster"
+                                    placeholder="Ingrese Email" formControlName="email"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('email', formEmpleado, formSubmited)}">
+                                <span class="error invalid-feedback"
+                                    *ngIf="formEmpleado.get('email')?.hasError('required') || formEmpleado.get('email')?.hasError('email')">Por
+                                    favor complete este campo.</span>
+                                <span class="error invalid-feedback"
+                                    *ngIf="formEmpleado.get('email')?.hasError('existe')">E-mail no
+                                    disponible.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Distrito: <strong class="text-danger">*</strong></label>
+                                <select
+                                    class="custom-select rounded-2 animate__animated animate__fadeInUp animate__faster"
+                                    formControlName="distrito"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('distrito', formEmpleado, formSubmited)}"
+                                    [compareWith]="compareTipo">
+                                    >
+                                    <option [ngValue]="null">
+                                        <-- SELECCIONE DISTRITO -->
+                                    </option>
+                                    <option *ngFor="let d of distritos" [ngValue]="d">{{d.nombre}}</option>
+                                </select>
+                                <span class="error invalid-feedback">Seleccione distrito</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Dirección: <strong class="text-danger">*</strong></label>
+                                <input type="text"
+                                    class="form-control animate__animated animate__fadeInUp animate__faster"
+                                    placeholder="Ingrese Nombres" formControlName="direccion"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('direccion', formEmpleado, formSubmited)}">
+                                <span class="error invalid-feedback">Por favor complete este campo y que sea
+                                    valido.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <!-- text input -->
+
+                            <div class="form-group">
+                                <label>Cargo: <strong class="text-danger">*</strong></label>
+                                <select
+                                    class="custom-select rounded-2 animate__animated animate__fadeInUp animate__faster"
+                                    formControlName="cargo"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('cargo', formEmpleado, formSubmited)}"
+                                    [compareWith]="compareTipo">
+                                    <option [ngValue]="null">
+                                        <-- SELECCIONE CARGO -->
+                                    </option>
+                                    <option *ngFor="let c of cargos" [ngValue]="c">{{c.nombre}}</option>
+                                </select>
+                                <span class="error invalid-feedback">Seleccione cargo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-center font-weight-bold">
+                                <button class="btn btn-success font-weight-bold pl-5 pr-5" type="submit"> GUARDAR
+                                    EMPLEADO <i class="fa fa-save ml-2"></i></button>
+                                <a class="btn btn-danger ml-3 pr-5 pl-5" routerLink="/sistema/empleados">
+                                    VOLVER <i class="fa fa-arrow-left ml-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</section>

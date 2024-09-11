@@ -1,0 +1,88 @@
+<div class="modal fondo-modal" [ngClass]="modalSer.getOcultarModal()?'':'modal-display-block'" id="modal-lg"
+    style="padding-right: 17px; " aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-lg animate__animated animate__fadeInDown">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Registrar Nuevo Plato</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrarModal()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="formPlato" (ngSubmit)="submit()" autocomplete="off" [formGroup]="formPlato">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6 ">
+                            <div class="form-group">
+                                <label>NOMBRE DEL PLATO *</label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Nombre del Plato"
+                                    name="nombre" formControlName="nombre"
+                                    [ngClass]="{'is-invalid': _fs.campoNoValido('nombre', formPlato, formSubmited)}">
+                                <span class="error invalid-feedback">Por favor ingrese el nombre del plato a
+                                    registrar.</span>
+                            </div>
+                            <div class="form-group">
+                                <label>CATEGORIA *</label>
+                                <span class="username text-primary">
+                                    <a [routerLink]="" (click)="abrirSubModal()"><strong>[+ Nuevo]</strong></a>
+                                </span>
+                                <select type="text" class="form-control" id="categoria" name="categoria"
+                                    formControlName="categoria"
+                                    [ngClass]="{'is-invalid': _fs.campoNoValido('categoria', formPlato, formSubmited)}"
+                                    [compareWith]="compareTipo">
+                                    <option [ngValue]="null">
+                                        <-- SELECCIONE TIPO DE CATEGORÍA -->
+                                    </option>
+                                    <option *ngFor="let tp of categoriaPlatoSelect" [ngValue]="tp">
+                                        {{ tp.nombre }}
+                                    </option>
+                                </select>
+                                <span class="error invalid-feedback">Por favor seleccione una categoría.</span>
+                            </div>
+                            <div class="form-group">
+                                <label>PRECIO DEL PLATO *</label>
+                                <input type="number" class="form-control" id="nombre_especializacion"
+                                    placeholder="PRECIO DEL PLATO" name="precio" formControlName="precio"
+                                    [ngClass]="{'is-invalid': _fs.campoNoValido('precio', formPlato, formSubmited)}">
+                                <span class="error invalid-feedback">Por favor el precio del plato a registrar.</span>
+                                <span class="error invalid-feedback"
+                                    *ngIf="formPlato.controls['precio'].hasError('min')">Ingrese un precio
+                                    correcto.</span>
+
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="col-sm-6 border">
+                            <div class="text-center">
+                                <img class=" img-thumbnail" style="width: 250px; height: 250px;"
+                                    [src]="imgSrc || 'http://localhost:9078/cevicheria/api/platos/uploads/img/noimage'" alt="User profile picture">
+                            </div>
+                            <div class="form-group">
+                                <label for="custom-file"> IMAGEN </label>
+                                <div class="custom-file">
+                                    <input (change)="seleccionarImagen($event)" type="file" class="custom-file-input"
+                                        id="customFile" accept="image/png, image/jpeg">
+                                    <label class="custom-file-label" for="customFile">Seleccione imagen</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="overlay" *ngIf="cargando">
+                    <i class="fas fa-2x fa-sync fa-spin"></i>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                        (click)="cerrarModal()">Salir</button>         
+                    <button type="submit" class="btn bg-indigo"><i class="fas fa-save mr-2"></i> Guardar</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<app-form-categoria (eventoListarSelect)="receiveMessage($event)" ></app-form-categoria>

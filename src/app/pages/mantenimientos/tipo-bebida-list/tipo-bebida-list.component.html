@@ -1,0 +1,74 @@
+<section class="content ml-3 mr-3">
+    <div class="container-fluid animate__animated animate__fadeIn">
+
+
+        <div class="card card-info card-outline">
+            <div class="card-header text-center">
+                <h5 class="card-title m-0"><strong>PLATOS</strong></h5>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="text-left pr-2">
+
+                            <button class="btn btn-app bg-green" (click)="abrirForm()">
+                                <i class="fas fa-plus"></i> Nuevo
+                            </button>
+                            <button class="btn btn-app bg-primary" (click)="listarTipos()" [disabled]="cargando">
+                                <i class="fab fa-canadian-maple-leaf"></i> Actualizar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-hover border">
+                                <thead>
+                                    <tr class="text-center bg-info">
+                                        <th style="width: 30px">#</th>
+                                        <th class="text-left">CATEGORÍA</th>
+                                        <th style="width: 100px">ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr class="text-center" *ngIf="cargando">
+                                        <th colspan="6">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                            <span>Cargando</span>
+                                        </th>
+                                    </tr>
+
+                                    <tr *ngFor="let tb of tipo_bebidas" class="animate__animated animate__fadeIn">
+                                        <td class="text-center align-middle">
+                                            {{ tb.id }}
+                                        </td>
+                                        <td class="align-middle">
+                                            {{ tb.nombre}}
+                                        </td>
+                                        <td class="text-center ">
+                                            <button type="button" class="btn bg-yellow btn-xs  mr-2 pl-4 pr-4  "
+                                                (click)="setId(tb.id)"> <i class="fas fa-edit mr-1"></i>
+                                                Editar</button>
+                                            <!-- <button type="button" class="btn bg-danger btn-xs pl-4 pr-4 btn-block"
+                                                (click)="updateStatus(plato,false)"> <i
+                                                    class="fas fa-trash-alt mr-1"></i> Eliminar</button> -->
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<app-tipo-bebida (eventoListarSelect)="receiveMessage($event)" (cerrarFormEvent)="cerrarFormEvent($event)"
+[item]="idSelect"></app-tipo-bebida>
