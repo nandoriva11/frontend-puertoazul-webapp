@@ -13,8 +13,8 @@ export class PagosPendientesComponent implements OnInit {
   public table!: any;
   public cargando: boolean = false;
   public pagos: Pago[] = [];
-  public activo = Estado.ACTIVO;
-  public inactivo = Estado.INACTIVO;
+  public pendiente = Estado.PENDIENTE;
+  public pagado = Estado.PAGADO;
   public idSelect!: number;
 
 

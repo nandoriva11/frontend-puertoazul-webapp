@@ -1,0 +1,224 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" *ngIf="pagoDB">
+                <form id="formPago" [formGroup]="formPago" (ngSubmit)="pagarPedido()">
+                <div class="invoice p-3 mb-3">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>
+                                <div class="text-center">
+                                    <i class="fas fa-money"></i> PAGAR PEDIDO:
+                                </div>
+                                <small class="float-right"><strong>Fecha pedido:</strong></small>
+                            </h4>
+                        </div>
+                        <div class="col-12">
+                            <h4>
+                                <small class="float-right"><strong>{{pagoDB.pedido.fec_pedido}}
+                                    </strong></small>
+                            </h4>
+                        </div>
+                        <div class="col-12">
+                            <h4>
+                                <h4>
+                                    <small class="float-right">PEDIDO NUMERO:</small>
+                                </h4>
+                                <br>
+                                <p class="float-right h3">
+                                    <span class="badge pl-4 pr-4 bg-lightblue">
+                                        {{pagoDB.numPedido}}
+                                    </span>
+                                </p>
+                            </h4>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- <form id="formLogin" (ngSubmit)="login()" autocomplete="on" [formGroup]="formLogin"> -->
+                 
+                        <div class="row invoice-info text-center">
+                            <div class="col-sm-4 invoice-col border">
+                                <div class="bg-lightblue font-weight-bold h5 p-2">Pedido registrado por:</div>
+                                <br>
+                                <address class="text-center">
+                                    <strong>{{pagoDB.empleado.nombres}}</strong><br>
+                                    <strong>{{pagoDB.empleado.apellidos}}</strong><br>
+                                </address>
+                            </div>
+
+                            <div class="col-sm-4 invoice-col border">
+                                <div class="bg-lightblue font-weight-bold h5 p-2">Cliente:</div>
+                                <br>
+                                <address class="text-center">
+                                    <strong>{{pagoDB.cliente.nombres}}</strong><br>
+                                    <strong>{{pagoDB.cliente.apellidos}}</strong><br>
+
+
+                                </address>
+                            </div>
+                            <div class="col-sm-4 invoice-col border">
+                                <div class="bg-lightblue font-weight-bold h5 p-2">Tipo Pedido:</div>
+                                <br>
+                                <address class="text-center">
+                                    <strong>{{pagoDB.pedido.tipo_pedido.nombre}}</strong><br>
+                                    <strong *ngIf="pagoDB.pedido.tipo_pedido.nombre == 'EN MESA'">#
+                                        {{pagoDB.pedido.mesa.nmesa}}</strong><br>
+                                </address>
+                            </div>
+
+
+                        </div>
+                        <br>
+                        <div class="row invoice-info text-center">
+                            <div class="col-sm-4 invoice-col border">
+                                <div class="bg-lightblue font-weight-bold h5 p-2">Pago Registrado por</div>
+                                <br>
+                                <address class="text-center">
+                                    <strong>{{pagoDB.empleado.nombres}}</strong><br>
+                                    <strong>{{pagoDB.empleado.apellidos}}</strong><br>
+                                </address>
+                            </div>
+
+                            <div class="col-sm-4 invoice-col border">
+                                <div class="bg-lightblue font-weight-bold h5 p-2">Tipo Pago</div>
+                                <br>
+                                <address class="text-center">
+                                    <div class="form-group">
+                                        <select
+                                            class="custom-select rounded-2 animate__animated animate__fadeInUp animate__faster"
+                                            formControlName="tipoPago"
+                                            [ngClass]="{'is-invalid': this._formS.campoNoValido('tipoPago', formPago, formSubmited)}">
+                                            <option [ngValue]="null">
+                                                <-- SELECCIONE TIPO PAGO -->
+                                            </option>
+                                            <option *ngFor="let d of tipos_pagos" [ngValue]="d">{{d.nombre}}</option>
+                                        </select>
+                                        <span class="error invalid-feedback">Seleccione tipo pago</span>
+
+                                    </div>
+                                </address>
+                            </div>
+                            <div class="col-sm-4 invoice-col border">
+                                <div class="bg-lightblue font-weight-bold h5 p-2">Tipo Recibo:</div>
+                                <br>
+                                <address class="text-center">
+                                    <div class="form-group">
+                                        <select
+                                            class="custom-select rounded-2 animate__animated animate__fadeInUp animate__faster"
+                                            formControlName="tipoRecibo"
+                                            [ngClass]="{'is-invalid': this._formS.campoNoValido('tipoRecibo', formPago, formSubmited)}">
+                                            <option [ngValue]="null">
+                                                <-- SELECCIONE TIPO PAGO -->
+                                            </option>
+                                            <option *ngFor="let d of tipos_recibo" [ngValue]="d">{{d.nombre}}</option>
+                                        </select>
+                                        <span class="error invalid-feedback">Seleccione tipo pago</span>
+
+                                    </div>
+                                </address>
+                            </div>
+
+
+                        </div>
+                   
+                    <br>
+
+                    <div class="row">
+                        <div class="col-12 table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="bg-lightblue">
+                                    <tr>
+                                        <th style="width: 50px;" class="text-center">CANTIDAD</th>
+                                        <th>PRODUCTO</th>
+                                        <th style="width: 150px;" class="text-center">PRECIO UN.</th>
+                                        <th style="width: 150px;" class="text-center">PRECIO TOTAL.</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <ng-container *ngFor="let platos of pagoDB.pedido.pedidoDetallesPlatos">
+                                        <tr>
+                                            <td class="text-center">{{platos.cantidad}}</td>
+                                            <td>{{platos.plato.nombre}} </td>
+                                            <td class="text-center">
+                                                S/. {{ platos.plato.precio | number:'1.2-2'}}
+                                            </td>
+                                            <td class="text-center">
+                                                S/. {{ platos.sub_total| number:'1.2-2'}}
+                                            </td>
+
+                                        </tr>
+
+                                    </ng-container>
+
+                                    <ng-container *ngFor="let bebida of pagoDB.pedido.pedidoDetallesBebidas">
+                                        <tr>
+                                            <td class="text-center">{{bebida.cantidad}}</td>
+                                            <td>{{bebida.bebida.nombre}} </td>
+                                            <td class="text-center">
+                                                S/. {{ bebida.bebida.precio | number:'1.2-2'}}
+                                            </td>
+                                            <td class="text-center">
+                                                S/. {{ bebida.subtotal| number:'1.2-2'}}
+                                            </td>
+
+
+                                        </tr>
+
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-6">
+
+                        </div>
+
+                        <div class="col-6">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr class="text-right">
+                                            <th style="width:50%">Subtotal:</th>
+                                            <td>S/. {{pagoDB.pedido.subtotal * 0.82 | number:'1.2-2'}}</td>
+                                        </tr>
+                                        <tr class="text-right">
+                                            <th>IGV:</th>
+                                            <td>S/. {{pagoDB.pedido.subtotal * 0.18 | number:'1.2-2' }}</td>
+                                        </tr>
+                                        <tr class="text-right">
+                                            <th>Total:</th>
+                                            <td>S/. {{pagoDB.pedido.subtotal | number:'1.2-2' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row no-print">
+                        <div class="col-12">
+                            <a rel="noopener" class="btn btn-default"><i class="fas fa-print"></i>
+                                IMPRIMIR CUENTA</a>
+
+
+                        </div>
+                        <div class="col-12 text-right">
+                            <button class="btn btn-success font-weight-bold pl-5 pr-5 mb-2" type="submit"> PAGAR
+                                PEDIDO<i class="fa fa-dollar ml-2"></i></button>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

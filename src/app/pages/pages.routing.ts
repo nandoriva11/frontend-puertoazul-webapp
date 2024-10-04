@@ -18,6 +18,9 @@ import { ListaPedidosComponent } from './pedidos/lista-pedidos/lista-pedidos.com
 import { VerPedidoComponent } from './pedidos/lista-pedidos/ver-pedido/ver-pedido.component';
 import { ClientesComponent } from './mantenimientos/clientes/clientes.component';
 import { PedidosComponent } from './cocina/pedidos/pedidos.component';
+import { PagosPendientesComponent } from './caja/pagos-pendientes/pagos-pendientes.component';
+import { AnularPagoComponent } from './caja/anular-pago/anular-pago.component';
+import { PagarPedidoComponent } from './caja/pagos-pendientes/pagar-pedido/pagar-pedido.component';
 
 
 
@@ -88,6 +91,15 @@ export const routes: Routes = [
             },
             {
                 path: 'cocina/pedidos', component: PedidosComponent, data: { titulo: 'Cocina / Lista de Pedidos Pendientes' }
+            },
+            {
+                path: 'caja/pagos', component: PagosPendientesComponent, data: { titulo: 'Caja / Pagos ' }
+            },
+            {
+                path: 'caja/pagos/pagar/:id', component: PagarPedidoComponent, data: { titulo: 'Caja / Pagos / Pagar' }
+            },
+            {
+                path: 'caja/anular-pagos', component: AnularPagoComponent, data: { titulo: 'Caja / Anular Pagos ' }
             },
 
             { path: '', redirectTo: '/sistema/dashboard', pathMatch: 'full' },

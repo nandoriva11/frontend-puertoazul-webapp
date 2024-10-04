@@ -27,12 +27,12 @@ export class SidebarService {
       ]
     },
     {
-      titulo: 'Ordenes',
+      titulo: 'Pedidos',
       icono: 'fas fa-book-open',
       submenu: [
-        { titulo: 'Tomar Orden', url: 'pedidos' },
-        { titulo: 'Estado de Ordenes', url: 'lista-pedidos' },
-        { titulo: 'Mis Ordenes', url: 'mis-ordenes/mesas/1' }
+        { titulo: 'Tomar Pedido', url: 'pedidos' },
+        { titulo: 'Estado de Pedidos', url: 'lista-pedidos' },
+        { titulo: 'Mis Pedidos', url: 'mis-ordenes/mesas/1' }
 
       ]
     },
@@ -41,6 +41,22 @@ export class SidebarService {
       icono: 'fas fa-utensils',
       submenu: [
         { titulo: 'Pedidos', url: 'cocina/pedidos' },
+
+      ]
+    },
+    {
+      titulo: 'Caja',
+      icono: 'fas fa-cash-register',
+      submenu: [
+        { titulo: 'Pagos Pendientes', url: 'caja/pagos' },
+        { titulo: 'Anular Pago', url: 'caja/anular-pagos' },
+
+      ]
+    },
+    {
+      titulo: 'Reportes',
+      icono: 'fas fa-file',
+      submenu: [
 
       ]
     }

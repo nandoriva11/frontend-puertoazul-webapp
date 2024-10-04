@@ -30,6 +30,8 @@ import { ClientesComponent } from './mantenimientos/clientes/clientes.component'
 import { ModalClientesComponent } from './mantenimientos/clientes/modal-clientes/modal-clientes.component';
 import { PedidosComponent } from './cocina/pedidos/pedidos.component';
 import { PagosPendientesComponent } from './caja/pagos-pendientes/pagos-pendientes.component';
+import { AnularPagoComponent } from './caja/anular-pago/anular-pago.component';
+import { PagarPedidoComponent } from './caja/pagos-pendientes/pagar-pedido/pagar-pedido.component';
 
 
 
@@ -59,6 +61,8 @@ import { PagosPendientesComponent } from './caja/pagos-pendientes/pagos-pendient
     ModalClientesComponent,
     PedidosComponent,
     PagosPendientesComponent,
+    AnularPagoComponent,
+    PagarPedidoComponent,
 
   ],
   imports: [
