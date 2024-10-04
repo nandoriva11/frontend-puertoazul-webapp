@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { Empleado } from '../../../models/empleado';
 import { Estado } from '../../../enums/estado';
 import { EmpleadoService } from '../../../services/empleado.service';
 import { ModalService } from '../../../services/modal.service';
+import Swal from 'sweetalert2';
 declare var $: any;
 
 @Component({
@@ -17,9 +19,10 @@ export class EmpleadosComponent {
   public activo = Estado.ACTIVO;
   public inactivo = Estado.INACTIVO;
   public idSelect!: number;
+  public empleado!: Empleado;
 
 
-  constructor(private _eS: EmpleadoService, private _mS: ModalService) {
+  constructor(private _eS: EmpleadoService, private _mS: ModalService, private location: Location) {
 
   }
   ngOnDestroy(): void {
@@ -30,6 +33,7 @@ export class EmpleadosComponent {
   ngOnInit(): void {
     this.listarTipos(this.activo);
   }
+
 
   listarTipos(estado: Estado) {
     this._eS.getByStatus(estado).subscribe(

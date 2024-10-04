@@ -1,0 +1,72 @@
+<div class="modal fondo-modal" [ngClass]="_mS.getOcultarModal()?'':'modal-display-block'" id="modal-lg"
+    style="padding-right: 17px; " aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-lg animate__animated animate__fadeInDown">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">FORMULARIO CLIENTES</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrarModal()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="formBebida" (ngSubmit)="submit()" autocomplete="off" [formGroup]="formCliente">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 ">
+
+                       
+                            <div class="form-group">
+                                <label>DNI:<strong class="text-danger">*</strong></label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="dni" placeholder="DNI" name="dni"
+                                        formControlName="dni"
+                                        [ngClass]="{'is-invalid': _fs.campoNoValido('dni', formCliente, formSubmited)}" >
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-info" (click)="buscarCliente()" title="Buscar cliente por DNI"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>NOMBRES:<strong class="text-danger">*</strong></label>
+                                <input type="text" class="form-control" id="nombres" placeholder="Nombres"
+                                    name="nombres" formControlName="nombres"
+                                    [ngClass]="{'is-invalid': _fs.campoNoValido('nombres', formCliente, formSubmited)}">
+                                <span class="error invalid-feedback">Por favor ingrese el nombre del cliente</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>APELLIDOS:<strong class="text-danger">*</strong></label>
+                                <input type="text" class="form-control" id="apellidos" placeholder="Apellidos"
+                                    name="apellidos" formControlName="apellidos"
+                                    [ngClass]="{'is-invalid': _fs.campoNoValido('nombres', formCliente, formSubmited)}">
+                                <span class="error invalid-feedback">Por favor ingrese apellidos del cliente</span>
+                            </div>
+
+
+                            <div class="form-group"></div>
+                            <label>CELULAR</label>
+                            <input type="text" class="form-control" id="celular" placeholder="Celular" name="celular"
+                                formControlName="celular"
+                                [ngClass]="{'is-invalid': _fs.campoNoValido('celular', formCliente, formSubmited)}">
+                            <span class="error invalid-feedback">Por favor ingrese el DNI del cliente</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="overlay" *ngIf="cargando">
+                    <i class="fas fa-2x fa-sync fa-spin"></i>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                        (click)="cerrarModal()">Salir</button>
+                    <button type="submit" class="btn bg-indigo"><i class="fas fa-save mr-2"></i> Guardar</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<app-tipo-bebida (eventoListarSelect)="receiveMessage($event)"></app-tipo-bebida>

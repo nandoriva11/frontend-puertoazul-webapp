@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-sm-6 ">
                             <div class="form-group">
-                                <label>NOMBRE DEL PLATO *</label>
+                                <label>NOMBRE DEL PLATO <strong class="text-danger">*</strong></label>
                                 <input type="text" class="form-control" id="nombre" placeholder="Nombre del Plato"
                                     name="nombre" formControlName="nombre"
                                     [ngClass]="{'is-invalid': _fs.campoNoValido('nombre', formPlato, formSubmited)}">
@@ -21,7 +21,7 @@
                                     registrar.</span>
                             </div>
                             <div class="form-group">
-                                <label>CATEGORIA *</label>
+                                <label>CATEGORIA<strong class="text-danger">*</strong></label>
                                 <span class="username text-primary">
                                     <a [routerLink]="" (click)="abrirSubModal()"><strong>[+ Nuevo]</strong></a>
                                 </span>
@@ -39,7 +39,7 @@
                                 <span class="error invalid-feedback">Por favor seleccione una categoría.</span>
                             </div>
                             <div class="form-group">
-                                <label>PRECIO DEL PLATO *</label>
+                                <label>PRECIO DEL PLATO <strong class="text-danger">*</strong></label>
                                 <input type="number" class="form-control" id="nombre_especializacion"
                                     placeholder="PRECIO DEL PLATO" name="precio" formControlName="precio"
                                     [ngClass]="{'is-invalid': _fs.campoNoValido('precio', formPlato, formSubmited)}">
@@ -57,7 +57,7 @@
                         <div class="col-sm-6 border">
                             <div class="text-center">
                                 <img class=" img-thumbnail" style="width: 250px; height: 250px;"
-                                    [src]="imgSrc || 'http://localhost:9078/cevicheria/api/platos/uploads/img/noimage'" alt="User profile picture">
+                                    [src]="imgSrc || noImagen" alt="User profile picture">
                             </div>
                             <div class="form-group">
                                 <label for="custom-file"> IMAGEN </label>

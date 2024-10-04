@@ -11,7 +11,7 @@
             <form id="formTipoBebida" (ngSubmit)="submit()" autocomplete="off" [formGroup]="formTipoBebida">
                 <div class="modal-body">
 
-                    <label>NOMBRE DEL TIPO DE BEBIDA *</label>
+                    <label>NOMBRE DEL TIPO DE BEBIDA <strong class="text-danger">*</strong></label>
                     <input type="text" class="form-control" id="nombre" placeholder="Nombre del tipo de bebida"
                         name="nombre" formControlName="nombre"
                         [ngClass]="{'is-invalid': _fs.campoNoValido('nombre', formTipoBebida, formSubmited)}">

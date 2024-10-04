@@ -11,7 +11,7 @@
             <form id="formCategoria" (ngSubmit)="submit()" autocomplete="off" [formGroup]="formCategoria">
                 <div class="modal-body">
 
-                    <label>NOMBRE DE LA CATEGORÍA *</label>
+                    <label>NOMBRE DE LA CATEGORÍA<strong class="text-danger">*</strong></label>
                     <input type="text" class="form-control" id="nombre" placeholder="Nombre de la Categoría"
                         name="nombre" formControlName="nombre"
                         [ngClass]="{'is-invalid': _fs.campoNoValido('nombre', formCategoria, formSubmited)}">

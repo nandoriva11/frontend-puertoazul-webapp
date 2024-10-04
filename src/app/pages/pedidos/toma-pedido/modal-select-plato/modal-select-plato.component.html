@@ -1,0 +1,98 @@
+<div class="modal fondo-modal" [ngClass]="_mS.getOcultarModal()?'':'modal-display-block'" id="sweet-event"
+    style="padding-right: 17px; " aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-xl animate__animated animate__fadeInDown">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">AGREGAR DETALLES</h4>
+                <button type="button" class="close p-4 bg-red" data-dismiss="modal" aria-label="Close"
+                    (click)="cerrarModal()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="card-body table-responsive p-0" style="height: 300px;" *ngIf="mostrar_tabla_platos">
+                        <table class="table table-head-fixed text-nowrap table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>PLATO</th>
+                                    <th class="text-center">PRECIO</th>
+
+                                    <th class="text-center" style="width: 30px">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="platos && platos.length > 0">
+                                <tr *ngFor="let p of platos">
+
+                                    <td class="align-middle"><strong>{{p.nombre}}</strong></td>
+                                    <td class="align-middle text-center"><strong>{{p.precio | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <!-- <div class="icheck-success">
+                                            <input type="checkbox" (change)="setOption(curso,$event)" [value]="curso.id"
+                                                [id]="curso.id">
+                                            <label [for]="curso.id"></label>
+                                        </div> -->
+                                        <button type="button" class="btn bg-success p-3" (click)="enviarPlato(p)">
+                                            <i class="far fa-share-square mr-1"></i>
+                                            ENVIAR</button>
+                                    </td>
+
+                                    <!-- 
+                                        <td class="text-center"><button type="button" class="btn btn-sm btn-info"
+                                                (click)="enviarCurso(curso)">Enviar</button> </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body table-responsive p-0" style="height: 300px;" *ngIf="mostrar_tabla_bebidas">
+                        <table class="table table-head-fixed text-nowrap table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>PLATO</th>
+                                    <th>PRECIO</th>
+                                    <th class="text-center" style="width: 30px">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="bebidas && bebidas.length > 0">
+                                <tr *ngFor="let b of bebidas">
+
+                                    <td class="align-middle"><strong>{{b.nombre}}</strong></td>
+                                    <td class="align-middle"><strong>{{b.precio | number:'1.2-2'}}</strong></td>
+
+                                    <td class="text-center align-middle">
+                                        <!-- <div class="icheck-success">
+                                            <input type="checkbox" (change)="setOption(curso,$event)" [value]="curso.id"
+                                                [id]="curso.id">
+                                            <label [for]="curso.id"></label>
+                                        </div> -->
+                                        <button type="button" class="btn bg-success p-3 "
+                                        (click)="enviarBebida(b)">
+                                            <i class="far fa-share-square"></i>
+                                            ENVIAR</button>
+                                    </td>
+
+                                    <!-- 
+                                    <td class="text-center"><button type="button" class="btn btn-sm btn-info"
+                                            (click)="enviarCurso(curso)">Enviar</button> </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+                <div class="overlay" *ngIf="cargando_platos">
+                    <i class="fas fa-2x fa-sync fa-spin"></i>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn bg-red btn-block p-4" data-dismiss="modal"
+                    (click)="cerrarModal()">Salir</button>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->

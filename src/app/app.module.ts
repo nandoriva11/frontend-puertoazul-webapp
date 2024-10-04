@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PagesModule } from './pages/pages.module';
+import { AuthModule } from './auth/auth.module';
+
 
 
 
@@ -22,7 +24,8 @@ import { PagesModule } from './pages/pages.module';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    PagesModule
+    PagesModule,
+    AuthModule
   ],
   exports: [
 

@@ -1,0 +1,278 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="sticky-top mb-3">
+                <div class="card">
+                    <div class="overlay" *ngIf="cargando_categorias">
+                        <i class="fas fa-2x fa-sync fa-spin"></i>
+                    </div>
+                    <div class="card-header">
+                        <h4 class="card-title">CATEGORIA PLATOS</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div id="external-events">
+                            <div class="text-center">
+                                <div class="d-inline" *ngFor="let c of categorias">
+                                    <button type="button" class="btn p-4 btn-info mb-1 ml-2"
+                                        (click)="abrirModalCategoria(c.id)" [disabled]="pedidoActivo">
+                                        <strong>{{ c.nombre }}</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card">
+                    <div class="overlay" *ngIf="cargando_categorias">
+                        <i class="fas fa-2x fa-sync fa-spin"></i>
+                    </div>
+                    <div class="card-header">
+                        <h4 class="card-title">TIPOS DE BEBIDA</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div id="external-events">
+                            <div class="text-center">
+                                <div class="d-inline" *ngFor="let b of tipo_bebidas">
+                                    <button type="button" class="btn p-4 bg-maroon mb-1 ml-2"
+                                        (click)="abrirModalTipoBebida(b.id)" [disabled]="pedidoActivo">
+                                        <strong>{{ b.nombre }}</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="sticky-top mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">INFORMACIÓN SOBRE EL PEDIDO</h3>
+                    </div>
+                </div>
+                <div>
+
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success">
+                            <i class="fas fa-dollar-sign"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text ">TOTAL:</span>
+                            <span class="info-box-number">
+                                {{_detallesListS.detalles.getTotal()|
+                                number:'1.2-2'}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="info-box" *ngIf="!parallevar && mesa">
+                        <span class="info-box-icon bg-indigo"><i class="far fa-flag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">MESA:</span>
+                            <span class="info-box-number">
+                                {{ mesa.nmesa }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="info-box" *ngIf="parallevar">
+                        <span class="info-box-icon bg-indigo"><i class="far fa-flag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">PEDIDO PARA LLEVAR</span>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">ATENDIDO POR:</span>
+                            <span class="info-box-number">
+                                {{user}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">FECHA:</span>
+                            <span class="info-box-number">
+                                {{ this.fecha }}
+                            </span>
+                        </div>
+                        <div class="info-box-content">
+                            <span class="info-box-text">HORA:</span>
+                            <span class="info-box-number">
+                                {{ this.hora }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info">
+                            <i class="fas fa-portrait"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">CLIENTE:</span>
+                            <span class="info-box-number">
+                                <select type="text" class="form-control" id="tipo_bebida" name="tipo_bebida"
+                                    [(ngModel)]="cliente" (change)="setCliente()" [compareWith]="compareTipo"
+                                    [disabled]="pedidoActivo">
+                                    <option [ngValue]="null">
+                                        <-- SELECCIONE CLIENTE -->
+                                    </option>
+                                    <option *ngFor="let c of clientes" [ngValue]="c">
+                                        {{ c.nombres + " " + c.num_doc }}
+                                    </option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="info-box">
+
+                        <button class="btn btn-app bg-green btn-block" (click)="enviarPedido()"
+                            [disabled]="!this._detallesListS._detalles.hasItems()" *ngIf="!pedidoActivo">
+                            <i class="fas fa-check"></i> GENERAR PEDIDO
+                        </button>
+
+                    </div>
+                    <div class="info-box">
+
+                        <button class="btn btn-app bg-red btn-block" routerLink="..">
+                            <i class="fas fa-check"></i> SALIR
+                        </button>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Buscar plato">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-primary">BUSCAR</button>
+            </div>
+        </div>
+        <div class="card">
+
+            <div class="card-body col-12 table-responsive p-0">
+                <table class="table table-striped table-valign-middle" id="receipt-content">
+                    <thead class="bg-secondary">
+                        <tr>
+                            <th>PEDIDO</th>
+                            <th class="text-center" style="width: 150px">CANTIDAD</th>
+                            <th class="text-center" style="width: 70px">PRECIO</th>
+                            <th class="text-center" style="width: 70px">SUBTOTAL</th>
+                            <th class="text-center" style="width: 50px">DETALLES</th>
+                            <th class="text-center" style="width: 50px">ELIMINAR</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-weight-bold">
+                        <!-- DETALE PLATOS -->
+                        <tr class="text-left" *ngFor="let pp of this._detallesListS.getListaDetallesPlatos()">
+                            <td class="align-middle">{{pp.plato.nombre}}</td>
+                            <td class="align-middle">
+                                <div class="d-flex justify-content-between align-middle">
+                                    <button type="button" class="btn btn-danger btn-sm pr-2 pl-2 mr-1"
+                                        (click)="quitar(pp)" [disabled]="pedidoActivo">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    {{ " " + pp.cantidad +" "}}
+                                    <button type="button" class="btn btn-success btn-sm pr-2 pl-2 ml-1"
+                                        (click)="agregar(pp)" [disabled]="pedidoActivo">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="text-center align-middle">{{pp.plato.precio | number:'1.2-2'}}</td>
+
+                            <td class="text-center align-middle">
+                                {{pp.sub_total | number:'1.2-2'}}
+                            </td>
+                            <td class="text-center align-middle">
+                                <button type="button" class="btn btn-sm btn-outline-info" data-toggle="tooltip"
+                                    data-placement="top" [title]="pp.detalles ? pp.detalles  : 'Sin detalles'"
+                                    (click)="abrirModalDetalles(pp)">
+                                    <i class="fas fa-eye"></i>
+
+                                </button>
+                            </td>
+                            <td class="text-center align-middle">
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="tooltip"
+                                    data-placement="top"
+                                    (click)="_detallesListS.deleteCantidadDetallePlato(pp.plato.id)"
+                                    [disabled]="pedidoActivo">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- DETALE BEBIDAS -->
+                        <tr class="text-left" *ngFor="let bebida of this._detallesListS.getListaDetallesBebidas()">
+                            <td class="align-middle">{{ bebida.bebida.nombre}}</td>
+                            <td class="align-middle">
+                                <div class="d-flex justify-content-between align-middle">
+                                    <button type="button" class="btn btn-danger btn-sm pr-2 pl-2 mr-1"
+                                        (click)="quitar(bebida)" [disabled]="pedidoActivo">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    {{ " " + bebida.cantidad +" "}}
+                                    <button type="button" class="btn btn-success btn-sm pr-2 pl-2 ml-1"
+                                        (click)="agregar(bebida)" [disabled]="pedidoActivo">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="text-center align-middle">{{bebida.bebida.precio | number:'1.2-2'}}</td>
+
+                            <td class="text-center align-middle">
+                                {{bebida.subtotal | number:'1.2-2'}}
+                            </td>
+                            <td class="text-center align-middle">
+                                <button type="button" class="btn btn-sm btn-outline-info" data-toggle="tooltip"
+                                    data-placement="top" [title]="bebida.detalles ? bebida.detalles  : 'Sin detalles'"
+                                    (click)="abrirModalDetallesBebidas(bebida)">
+                                    <i class="fas fa-eye"></i>
+
+                                </button>
+                            </td>
+                            <td class="text-center align-middle">
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="tooltip"
+                                    data-placement="top"
+                                    (click)="_detallesListS.deleteCantidadDetalleBebida(bebida.bebida.id)"
+                                    [disabled]="pedidoActivo">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="this._detallesListS.detalles.getTotal() == 0">
+                            <td colspan="6" class="text-center">SIN REGISTROS</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<app-modal-select-plato [idCategoria]="idCategoria" [idTipoBebida]="idTipoBebida"
+    (cerrarFormEvent)="cerrarFormEvent($event)" (eventEnviarPlato)="recibirPlatoEvent($event)"
+    (eventEnviarBebida)="recibirBebidaEvent($event)">
+
+</app-modal-select-plato>

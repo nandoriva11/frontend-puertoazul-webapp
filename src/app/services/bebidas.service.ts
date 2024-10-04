@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { CommonServiceStatusService } from './common-service-status.service';
 import { Bebida } from '../models/bebida';
 import { Observable } from 'rxjs';
+import { Plato } from '../models/plato';
+import { url_backend2 } from '../../assets/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BebidasService extends CommonServiceStatusService<Bebida> {
 
-  protected override baseEndPoint = "http://localhost:9078/cevicheria/api/" + 'bebidas';
+  protected override baseEndPoint = url_backend2 + 'bebidas';
 
   public crearConFoto(bebida: Bebida, archivo: File): Observable<Bebida> {
     const formData = new FormData();
@@ -30,5 +32,9 @@ export class BebidasService extends CommonServiceStatusService<Bebida> {
     formData.append('estado', bebida.estado);
     formData.append('precio', bebida.precio.toString());
     return this.httpClient.put<Bebida>(this.baseEndPoint + '/edit/' + id, formData)
+  }
+
+  getByTipo(idCategoria: number): Observable<Bebida[]> {
+    return this.httpClient.get<Bebida[]>(this.baseEndPoint + "/listar-por-tipo-bebida/" + idCategoria);
   }
 }

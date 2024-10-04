@@ -9,6 +9,7 @@ import { TipoBebidaService } from '../../../../../services/tipo-bebida.service';
 import { FormsService } from '../../../../../services/forms.service';
 import { Estado } from '../../../../../enums/estado';
 import Swal from 'sweetalert2';
+import { url_backend2 } from '../../../../../../assets/environments/environment';
 
 @Component({
   selector: 'app-form-bebidas',
@@ -20,6 +21,7 @@ export class FormBebidasComponent implements OnInit, OnChanges {
   public formSubmited = false;
   public cargando = false;
   public imgSrc: any;
+  public noImagen = url_backend2 + 'bebidas/uploads/img/noimg';
   bebida!: Bebida;
   tipo_bebida_select: TipoBebida[] = [];
   formBebida!: FormGroup;
@@ -71,7 +73,7 @@ export class FormBebidasComponent implements OnInit, OnChanges {
     this.formBebida.get('tipo_bebida')?.setValue(this.bebida.tipo_bebida);
     this.formBebida.get('precio')?.setValue(this.bebida.precio);
     if (this.bebida.imagen) {
-      this.imgSrc = "http://localhost:9078/cevicheria/api/bebidas/uploads/img/" + this.bebida.imagen;
+      this.imgSrc = url_backend2 + "bebidas/uploads/img/" + this.bebida.imagen;
     } else {
       this.imgSrc = null;
     }

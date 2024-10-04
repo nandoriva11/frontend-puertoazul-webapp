@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
+import { AuthService } from '../../services/auth.service';
 declare var $: any;
 @Component({
   selector: 'app-sidebar',
@@ -8,16 +9,27 @@ declare var $: any;
 })
 export class SidebarComponent implements OnInit {
   menu: any[];
-  constructor(sidebarService: SidebarService) {
+  email!: string;
+  imgFont!: string;
+  isAuthenticated = false;
+  constructor(sidebarService: SidebarService, private authService: AuthService) {
     this.menu = sidebarService.menu;
-    console.log(this.menu);
+    
     
 
+
+
+    this.isAuthenticated = authService.isAuthenticated();
   }
   ngOnInit(): void {
+    this.email = this.authService.usuario.nombre;
+    let email = this.authService.usuario.nombre;
+    this.email = email;
+    this.imgFont = email.charAt(0).toUpperCase();
+    
     SidebarService.iniciarMenu();
 
   }
-  
+
 
 }

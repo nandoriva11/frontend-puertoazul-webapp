@@ -4,8 +4,9 @@ import { Estado } from '../../../enums/estado';
 import { PlatoService } from '../../../services/plato.service';
 declare var jQuery: any;
 declare var $: any;
-import Swal from 'sweetalert2';
 import { ModalService } from '../../../services/modal.service';
+import Swal from 'sweetalert2';
+declare var $: any;
 
 @Component({
   selector: 'app-platos',
@@ -25,9 +26,14 @@ export class PlatosComponent implements OnInit, OnDestroy {
 
   }
   ngOnDestroy(): void {
+    this.deleteTable();
+    $('#example1').dataTable().fnDestroy();
+    $('#example1').dataTable().fnDestroy();
+    $('#example1').dataTable().fnDestroy();
     this.platos = [];
     this.cargando = false;
-    this.deleteTable();
+    console.log("destruyendo");
+    
   }
   ngOnInit(): void {
     this.listarTipos(this.activo);
@@ -47,6 +53,8 @@ export class PlatosComponent implements OnInit, OnDestroy {
       }
     )
   }
+
+ 
 
   abrirForm() {
     this.modalSer.abrirModal();
@@ -84,6 +92,7 @@ export class PlatosComponent implements OnInit, OnDestroy {
   deleteTable() {
     $('#example1').dataTable().fnDestroy();
   }
+
   updateList(event: any) {
     this.deleteTable();
     this.listar();

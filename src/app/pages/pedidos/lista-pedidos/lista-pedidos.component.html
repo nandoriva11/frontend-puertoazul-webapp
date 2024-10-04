@@ -1,0 +1,93 @@
+<section class="content ml-3 mr-3">
+    <div class="container-fluid animate__animated animate__fadeIn">
+
+
+        <div class="card card-info card-outline">
+            <div class="card-header text-center">
+                <h5 class="card-title m-0"><strong>EMPLEADOS</strong></h5>
+            </div>
+            <div id="cardtools" class="card-tools">
+
+
+            </div>
+            <div class="card-body">
+                <button class="btn btn-app bg-green" routerLink="formulario">
+                    <i class="fas fa-plus"></i> Nuevo
+                </button>
+                <button class="btn btn-app bg-success" (click)="listarTipos(activo)" [disabled]="cargando">
+                    <i class="fas fa-check-circle"></i> ACTIVOS
+                </button>
+                <button class="btn btn-app bg-danger" (click)="listarTipos(inactivo)" [disabled]="cargando">
+                    <i class="fas fa-times-circle"></i> INACTIVOS
+                </button>
+
+                <div class="table-responsive">
+                    <table id="example1" class="table table-hover border">
+                        <thead>
+                            <tr class="text-center bg-info">
+                                <th>NUM PEDIDO</th>
+                                <th>CLIENTE</th>
+                                <th>REGISTRADO POR</th>
+                                <th>FECHA PEDIDO</th>
+                                <th>HORA PEDIDO</th>
+                                <th>MESA</th>
+                                <th>TIPO PEDIDO</th>
+                                <th>ESTADO</th>
+                                <th>ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr class="text-center" *ngIf="cargando">
+                                <th colspan="13">
+                                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                    <span>Cargando</span>
+                                </th>
+                            </tr>
+
+                            <tr *ngFor="let pedido of pedidos" class="animate__animated animate__fadeIn">
+                                <td class="text-center align-middle">
+                                    {{ pedido.numPedido }}
+                                </td>
+                                <td class="align-middle">
+                                    {{ pedido.cliente.nombres + " " + pedido.cliente.apellidos}}
+                                </td>
+                                <td class="text-center align-middle">
+                                    {{pedido.empleado.nombres + " " + pedido.empleado.apellidos}}
+                                </td>
+                                <td class="text-center align-middle">
+                                    {{ pedido.fec_pedido }}
+                                </td>
+                                <td class="text-center align-middle">
+                                    {{ pedido.hora_pedido}}
+                                </td>
+                                <td class="text-center align-middle">
+                                    <div *ngIf="pedido.mesa">
+                                        {{ pedido.mesa.nmesa}}
+                                    </div>
+                                </td>
+                                <td class="text-center align-middle">
+                                    {{ pedido.tipo_pedido.nombre}}
+                                </td>
+                                <td class="text-center align-middle">
+                                    <span class="badge pl-4 pr-4"
+                                        [ngClass]="pedido.estado === 'RECIBIDO'?'bg-success':'badge-danger'">
+                                        {{pedido.estado}}
+                                    </span>
+                                </td>
+                                <td class="text-center ">
+                                    <button type="button" class="btn btn-info btn-sm"
+                                        [routerLink]="['ver-orden',pedido.id]"> <i class="fas fa-eye"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>

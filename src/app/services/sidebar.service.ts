@@ -14,23 +14,33 @@ export class SidebarService {
       submenu: []
     },
     {
-      titulo: 'Gestion de Insumos',
+      titulo: 'Mantenimientos',
       icono: 'fas fa-user-friends',
       submenu: [
         { titulo: 'Platos', url: 'platos' },
         { titulo: 'Categoría Platos', url: 'categoria-plato' },
         { titulo: 'Bebidas', url: 'bebidas' },
         { titulo: 'Tipo Bebidas', url: 'tipo-bebida' },
-        { titulo: 'Mesas', url: 'dashboard' },
-        { titulo: 'Empleados/Usuarios', url: 'empleados' }
+        { titulo: 'Mesas', url: 'mesas' },
+        { titulo: 'Empleados/Usuarios', url: 'empleados' },
+        { titulo: 'Clientes', url: 'clientes' }
       ]
     },
     {
-      titulo: 'Operaciones',
-      icono: 'fas fa-book',
+      titulo: 'Ordenes',
+      icono: 'fas fa-book-open',
       submenu: [
-        { titulo: 'Tomar Orden', url: 'matricular' },
-        { titulo: 'Estado de Ordenes', url: 'pagos-inicio' }
+        { titulo: 'Tomar Orden', url: 'pedidos' },
+        { titulo: 'Estado de Ordenes', url: 'lista-pedidos' },
+        { titulo: 'Mis Ordenes', url: 'mis-ordenes/mesas/1' }
+
+      ]
+    },
+    {
+      titulo: 'Cocina',
+      icono: 'fas fa-utensils',
+      submenu: [
+        { titulo: 'Pedidos', url: 'cocina/pedidos' },
 
       ]
     }
@@ -46,6 +56,7 @@ export class SidebarService {
 
   }
   constructor() { }
+
   public searchItem(searchParam: string) {
     let menu = this.menu;
     let responseItem: { titulo: string, url: string }[] = [];

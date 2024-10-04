@@ -1,0 +1,62 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4 class="card-title">TOMAR MESAS</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <button class="btn btn-block btn-app bg-indigo" routerLink="formulario"
+                                [routerLink]="['tomar-orden','mesa',0]">
+                                <i class="fas fa-home"></i> PEDIDO PARA LLEVAR
+                            </button>
+                        </div>
+                        <div class="overlay" *ngIf="cargando">
+                            <i class="fas fa-2x fa-sync fa-spin"></i>
+                        </div>
+                        <div class="row">
+
+                            <div *ngFor="let item of mesas" class="col-sm-3">
+
+                                <div class="">
+                                    <div class="card  d-flex flex-fill border">
+                                        <div class="card-header text-muted border-bottom-0 text-center">
+                                            <h2><strong>Mesa <br>#{{ item.nmesa }}</strong></h2>
+                                        </div>
+                                        <div class="card-body pt-0 text-center">
+                                            <span class="badge pl-4 pr-4"
+                                                [ngClass]="item.estado === 'LIBRE'?'bg-success':'badge-danger'">
+                                                {{item.estado}}
+                                            </span>
+                                            <h5> Personas: <br>{{item.npersonas}}</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="text-right">
+
+                                                <button [routerLink]="['tomar-orden','mesa',item.id]"
+                                                    class="btn btn-block bg-lime"
+                                                    [disabled]="item.estado === 'OCUPADO'">
+                                                    <i class="far fa-hand-paper"></i> TOMAR MESA
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

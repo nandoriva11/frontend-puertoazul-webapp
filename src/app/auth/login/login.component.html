@@ -1,0 +1,53 @@
+<section class="login-page">
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card card-outline card-info">
+            <div class="overlay" *ngIf="cargando">
+                <i class="fas fa-2x fa-sync fa-spin"></i>
+            </div>
+            <div class="card-header text-center">
+                <a class="h1"><b>PUERTO AZUL</b> SISTEMA</a>
+            </div>
+            <div class="card-body">
+
+                <p class="login-box-msg h4">INGRESE CREDENCIALES</p>
+
+                <form id="formLogin" (ngSubmit)="login()" autocomplete="on" [formGroup]="formLogin">
+
+                    <div class="form-group">
+                        <label class="col-form-label" for="email"><i class="far fa-envelope"></i> Email:</label>
+                        <input type="email" class="form-control is-invalid"
+                            [ngClass]="{'is-invalid': this.formsService.campoNoValido('email', formLogin, formSubmited)}"
+                            id="email" placeholder="Email" formControlName="email">
+                        <label class="error invalid-feedback"> Ingrese E-mail</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="password"><i class="far fa-envelope"></i> Contraseña:</label>
+                        <input type="password" class="form-control is-invalid"
+                            [ngClass]="{'is-invalid': this.formsService.campoNoValido('password', formLogin, formSubmited)}"
+                            id="password" placeholder="Contraseña" formControlName="password">
+                        <label class="error invalid-feedback"> Ingrese Contraseña</label>
+                    </div>
+                    <div class="form-group mt-3 is-invalid text-center">
+                        <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" (success)="handleSuccess($event)"
+                            [useGlobalDomain]="false" formControlName="recaptcha">
+                        </ngx-recaptcha2>
+                        <label class="error text-red"
+                            *ngIf="this.formsService.campoNoValido('recaptcha', formLogin, formSubmited)"> Complete
+                            Recaptcha</label>
+                    </div>
+                    <div class="social-auth-links text-center mt-2 mb-3">
+                        <button type="submit" class="btn btn-block btn-primary">
+                            INGRESAR
+                        </button>
+                    </div>
+                </form>
+
+
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</section>

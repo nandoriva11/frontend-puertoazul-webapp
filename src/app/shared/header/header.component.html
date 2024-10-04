@@ -5,9 +5,7 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block ">
-            <a class="nav-link text-light" routerLink="sistema">INICIO <i class="fas fa-home"> </i></a>
-        </li>
+        
     </ul>
 
     <!-- Right navbar links -->
@@ -37,14 +35,13 @@
 
 
         <li class="nav-item">
-            <a class="nav-link" role="button" (click)="changeTheme()">
+            <a class="nav-link  " role="button" (click)="changeTheme()" title="Cambiar tema">
                 <i class="fas fa-moon"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link">
-                <button type="button" class="btn btn-block btn-danger btn-xs">Salir <i
-                        class="fas fa-sign-out-alt ml-2"></i></button>
+            <a class="nav-link " (click)="logout()" title="Salir">
+                <i class="fas fa-sign-out-alt"></i>
             </a>
         </li>
     </ul>

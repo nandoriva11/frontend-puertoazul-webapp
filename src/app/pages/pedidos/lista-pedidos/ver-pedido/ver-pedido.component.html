@@ -1,0 +1,167 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" *ngIf="pedidoBD">
+
+                <div class="invoice p-3 mb-3">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>
+                                <div class="text-center">
+                                    <i class="fas fa-info"></i> DETALLES DE PEDIDO:
+                                </div>
+                                <small class="float-right"><strong>Fecha pedido:</strong></small>
+                            </h4>
+                        </div>
+                        <div class="col-12">
+                            <h4>
+                                <small class="float-right"><strong>{{pedidoBD.fec_pedido + " " + pedidoBD.hora_pedido}}
+                                    </strong></small>
+                            </h4>
+                        </div>
+                        <div class="col-12">
+                            <h4>
+                                <h4>
+                                    <small class="float-right">PEDIDO NUMERO:</small>
+                                </h4>
+                                <br>
+                                <p class="float-right h3">
+                                    <span class="badge pl-4 pr-4 bg-indigo">
+                                        {{pedidoBD.numPedido}}
+                                    </span>
+                                </p>
+                            </h4>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row invoice-info text-center">
+                        <div class="col-sm-4 invoice-col border">
+                            <div class="bg-indigo font-weight-bold h5 p-2">Pedido registrado por:</div>
+                            <br>
+                            <address class="text-center">
+                                <strong>{{pedidoBD.empleado.nombres}}</strong><br>
+                                <strong>{{pedidoBD.empleado.apellidos}}</strong><br>
+                            </address>
+                        </div>
+
+                        <div class="col-sm-4 invoice-col border">
+                            <div class="bg-indigo font-weight-bold h5 p-2">Cliente:</div>
+                            <br>
+                            <address class="text-center">
+                                <strong>{{pedidoBD.cliente.nombres}}</strong><br>
+                                <strong>{{pedidoBD.cliente.apellidos}}</strong><br>
+
+
+                            </address>
+                        </div>
+                        <div class="col-sm-4 invoice-col border">
+                            <div class="bg-indigo font-weight-bold h5 p-2">Tipo Pedido:</div>
+                            <br>
+                            <address class="text-center">
+                                <strong>{{pedidoBD.tipo_pedido.nombre}}</strong><br>
+                            </address>
+                        </div>
+
+
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-12 table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="bg-indigo">
+                                    <tr>
+                                        <th style="width: 50px;" class="text-center">CANTIDAD</th>
+                                        <th>PRODUCTO</th>
+                                        <th style="width: 150px;" class="text-center">ESTADO</th>
+                                        <th style="width: 150px;" class="text-center">ACCIONES</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="bg-secondary text-center h5" colspan="4">PLATOS</td>
+                                    </tr>
+                                    <ng-container *ngFor="let platos of pedidoBD.pedidoDetallesPlatos">
+                                        <tr>
+                                            <td class="text-center">{{platos.cantidad}}</td>
+                                            <td>{{platos.plato.nombre}} </td>
+                                            <td class="text-center">
+                                                <span class="badge pl-4 pr-4"
+                                                    [ngClass]="platos.estado === 'RECIBIDO'?'bg-warning':'bg-success'">
+                                                    {{platos.estado}}
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-block btn-success btn-sm"
+                                                    (click)="actualizarPlato(platos)"
+                                                    [disabled]="platos.estado == 'ENTREGADO'">
+                                                    <i class="fas fa-check"></i>
+                                                    ENTREGAR
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td colspan="1"> <strong>DETALLE: </strong></td>
+                                            <td colspan="3"> {{platos.detalles || "Sin Detalles"}} </td>
+                                        </tr>
+                                    </ng-container>
+                                    <tr>
+                                        <td class="bg-secondary text-center h5" colspan="4">BEBIDAS</td>
+                                    </tr>
+                                    <ng-container *ngFor="let bebida of pedidoBD.pedidoDetallesBebidas">
+                                        <tr>
+                                            <td class="text-center">{{bebida.cantidad}}</td>
+                                            <td>{{bebida.bebida.nombre}} </td>
+                                            <td class="text-center">
+                                                <span class="badge pl-4 pr-4"
+                                                    [ngClass]="bebida.estado === 'RECIBIDO'?'bg-warning':'bg-success'">
+                                                    {{bebida.estado}}
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-block btn-success btn-sm"
+                                                    (click)="actualizarBebida(bebida)"
+                                                    [disabled]="bebida.estado == 'ENTREGADO'">
+                                                    <i class="fas fa-check"></i>
+                                                    ENTREGAR
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td colspan="1"> <strong>DETALLE: </strong></td>
+                                            <td colspan="3"> {{bebida.detalles || "Sin Detalles"}} </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="row no-print">
+                        <div class="col-12">
+                            <a rel="noopener" class="btn btn-default" (click)="imprimirCuenta()"><i
+                                    class="fas fa-print"></i>
+                                IMPRIMIR CUENTA</a>
+                            <a rel="noopener" class="btn btn-default" (click)="imprimirComanda()"><i
+                                    class="fas fa-print"></i>
+                                IMPRIMIR COMANDA</a>
+                            <button type="button" class="btn btn-success float-right"
+                                [disabled]="!pedidoBD.notSomeonePendiente" (click)="cobrarPedido()"><i
+                                    class="far fa-credit-card"></i>
+                                COBRAR PEDIDO
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

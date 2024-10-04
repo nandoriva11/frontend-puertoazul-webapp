@@ -9,7 +9,7 @@
 
                 <form id="formEmpleado" [formGroup]="formEmpleado" (ngSubmit)="submit()">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <!-- text input -->
                             <div class="form-group">
                                 <label>Nombres: <strong class="text-danger">*</strong></label>
@@ -20,7 +20,7 @@
                                 <span class="error invalid-feedback">Por favor complete este campo.</span>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Apellidos: <strong class="text-danger">*</strong> </label>
                                 <input type="text"
@@ -28,6 +28,21 @@
                                     placeholder="Ingrese Apellidos" formControlName="apellidos"
                                     [ngClass]="{'is-invalid': this._formS.campoNoValido('apellidos', formEmpleado, formSubmited)}">
                                 <span class="error invalid-feedback">Por favor complete este campo.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Celular: <strong class="text-danger">*</strong></label>
+                                <input type="text"
+                                    class="form-control animate__animated animate__fadeInUp animate__faster"
+                                    placeholder="Ingrese Celular" formControlName="celular"
+                                    data-inputmask="mask': ['999-999-999 [x99999]', '+099 99 99 9999[9]-999']"
+                                    data-mask="" inputmode="text"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('celular', formEmpleado, formSubmited)}">
+
+                                <span class="error invalid-feedback">Por favor complete este campo.</span>
+
                             </div>
                         </div>
                     </div>
@@ -122,22 +137,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label>Telefono: <strong class="text-danger">*</strong></label>
-                                <input type="text"
-                                    class="form-control animate__animated animate__fadeInUp animate__faster"
-                                    placeholder="Ingrese Telefono" formControlName="telefono"
-                                    data-inputmask="mask': ['999-999-999 [x99999]', '+099 99 99 9999[9]-999']"
-                                    data-mask="" inputmode="text"
-                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('telefono', formEmpleado, formSubmited)}">
 
-                                <span class="error invalid-feedback">Por favor complete este campo.</span>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Email: <strong class="text-danger">*</strong></label>
                                 <input type="text"
@@ -152,11 +153,9 @@
                                     disponible.</span>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-
                         <div class="col-sm-4">
+                            <!-- text input -->
+
                             <div class="form-group">
                                 <label>Distrito: <strong class="text-danger">*</strong></label>
                                 <select
@@ -164,27 +163,12 @@
                                     formControlName="distrito"
                                     [ngClass]="{'is-invalid': this._formS.campoNoValido('distrito', formEmpleado, formSubmited)}"
                                     [compareWith]="compareTipo">
-                                    >
                                     <option [ngValue]="null">
                                         <-- SELECCIONE DISTRITO -->
                                     </option>
                                     <option *ngFor="let d of distritos" [ngValue]="d">{{d.nombre}}</option>
                                 </select>
                                 <span class="error invalid-feedback">Seleccione distrito</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label>Dirección: <strong class="text-danger">*</strong></label>
-                                <input type="text"
-                                    class="form-control animate__animated animate__fadeInUp animate__faster"
-                                    placeholder="Ingrese Nombres" formControlName="direccion"
-                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('direccion', formEmpleado, formSubmited)}">
-                                <span class="error invalid-feedback">Por favor complete este campo y que sea
-                                    valido.</span>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -206,12 +190,33 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Dirección: <strong class="text-danger">*</strong></label>
+                                <input type="text"
+                                    class="form-control animate__animated animate__fadeInUp animate__faster"
+                                    placeholder="Ingrese Dirección" formControlName="direccion"
+                                    [ngClass]="{'is-invalid': this._formS.campoNoValido('direccion', formEmpleado, formSubmited)}">
+                                <span class="error invalid-feedback">Por favor complete este campo y que sea
+                                    valido.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+
+                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="text-center font-weight-bold">
-                                <button class="btn btn-success font-weight-bold pl-5 pr-5" type="submit"> GUARDAR
+                                <button class="btn btn-success font-weight-bold pl-5 pr-5 mb-2" type="submit"> GUARDAR
                                     EMPLEADO <i class="fa fa-save ml-2"></i></button>
-                                <a class="btn btn-danger ml-3 pr-5 pl-5" routerLink="/sistema/empleados">
+                                    <br>
+                                <a class="btn btn-danger font-weight-bold pl-5 pr-5" routerLink="/sistema/empleados">
                                     VOLVER <i class="fa fa-arrow-left ml-2"></i></a>
                             </div>
                         </div>

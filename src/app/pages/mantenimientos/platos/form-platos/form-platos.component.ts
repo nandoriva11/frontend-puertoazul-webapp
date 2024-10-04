@@ -1,14 +1,15 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ModalService } from '../../../../../services/modal.service';
-import { PlatoService } from '../../../../../services/plato.service';
-import { FormsService } from '../../../../../services/forms.service';
+import { ModalService } from '../../../../services/modal.service';
+import { PlatoService } from '../../../../services/plato.service';
+import { FormsService } from '../../../../services/forms.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Plato } from '../../../../../models/plato';
-import { CategoriaPlatoService } from '../../../../../services/categoria-plato.service';
-import { CategoriaPlato } from '../../../../../models/categoria-plato';
-import { Estado } from '../../../../../enums/estado';
+import { Plato } from '../../../../models/plato';
+import { CategoriaPlatoService } from '../../../../services/categoria-plato.service';
+import { CategoriaPlato } from '../../../../models/categoria-plato';
+import { Estado } from '../../../../enums/estado';
 import Swal from 'sweetalert2';
+import { url_backend2 } from '../../../../../assets/environments/environment';
 
 @Component({
   selector: 'app-form-platos',
@@ -20,6 +21,7 @@ export class FormPlatosComponent implements OnInit, OnChanges {
   public formSubmited = false;
   public cargando = false;
   public imgSrc: any;
+  public noImagen = url_backend2 + 'bebidas/uploads/img/noimg';
   plato!: Plato;
   categoriaPlatoSelect: CategoriaPlato[] = [];
   formPlato!: FormGroup;
@@ -75,7 +77,7 @@ export class FormPlatosComponent implements OnInit, OnChanges {
     this.formPlato.get('categoria')?.setValue(this.plato.categoriaPlato);
     this.formPlato.get('precio')?.setValue(this.plato.precio);
     if (this.plato.imagen) {
-      this.imgSrc = "http://localhost:9078/cevicheria/api/platos/uploads/img/" + this.plato.imagen;
+      this.imgSrc = url_backend2 + "platos/uploads/img/" + this.plato.imagen;
     }else{
       this.imgSrc = null;
     }

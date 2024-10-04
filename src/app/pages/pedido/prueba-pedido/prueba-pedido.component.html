@@ -1,0 +1,16 @@
+<div class="receipt-container" id="receipt-content">
+    <div class="receipt-header">
+      <h1>Supermarket</h1>
+      <p>Date: {{ currentDate | date }}</p>
+    </div>
+    <div class="receipt-body">
+      <div class="receipt-item" *ngFor="let item of items">
+        <span>{{ item.name }}</span>
+        <span>{{ item.price | currency }}</span>
+      </div>
+    </div>
+    <div class="receipt-footer">
+      <p>Total: {{ total | currency }}</p>
+    </div>
+  </div>
+  <button (click)="printReceipt()">Print Receipt</button>

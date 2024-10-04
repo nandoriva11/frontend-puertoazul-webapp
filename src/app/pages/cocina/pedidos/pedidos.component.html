@@ -1,0 +1,89 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4 class="card-title">ORDENES EN ESPERA</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="overlay" *ngIf="cargando">
+                            <i class="fas fa-2x fa-sync fa-spin"></i>
+                        </div>
+                        <div class="row" *ngIf="pedidos">
+
+                            <div *ngFor="let p of pedidos" class="col-sm-4">
+
+                                <div class="" *ngIf="p.mesa">
+                                    <div class="card  d-flex flex-fill border">
+                                        <div class="card-header text-muted border-bottom-0 text-center">
+                                            <h4 class="bg-secondary"><strong>Mesa <br>#{{ p.mesa.nmesa }}</strong></h4>
+                                        </div>
+                                        <div class="card-body pt-0 text-center">
+                                            <h4><strong>Items: <br>{{ p.pedidoDetallesBebidas.length +
+                                                    p.pedidoDetallesPlatos.length }}</strong></h4>
+                                            <span class="badge pl-4 pr-4"
+                                                [ngClass]="p.estado === 'PENDIENTE'?'bg-warning':'badge-danger'">
+                                                {{p.estado}}
+                                            </span>
+
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="text-right">
+                                                <button [routerLink]="['ver-pedido',p.id]"
+                                                    class="btn btn-block bg-lime">
+                                                    <i class="fa fa-eye"></i> VER PEDIDO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="" *ngIf="p.tipo_pedido.id == 2">
+                                    <div class="card  d-flex flex-fill border">
+                                        <div class="card-header text-muted border-bottom-0 text-center">
+                                            <h5 class="bg-info"><strong>PEDIDO <br>PARA LLEVAR </strong></h5>
+                                            <h4><strong>Items: <br>{{ p.pedidoDetallesBebidas.length +
+                                                    p.pedidoDetallesPlatos.length }}</strong></h4>
+                                        </div>
+                                        <div class="card-body pt-0 text-center">
+                                            <span class="badge pl-4 pr-4"
+                                                [ngClass]="p.estado === 'PENDIENTE'?'bg-warning':'badge-danger'">
+                                                {{p.estado}}
+                                            </span>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="text-right">
+
+                                                <button [routerLink]="['tomar-orden','mesa',p.id]"
+                                                    class="btn btn-block bg-lime">
+                                                    <i class="fa fa-eye"></i> VER PEDIDO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12" *ngIf="!cargando && pedidos.length == 0">
+                                <div class="alert alert-info alert-dismissible h3">
+                                    <hr>
+                                    <h5><i class="icon fas fa-check"></i> ALERTA</h5>
+                                    Aún no tiene pedidos registrados.
+                                    <hr>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

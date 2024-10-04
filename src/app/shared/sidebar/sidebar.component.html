@@ -16,11 +16,11 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-md-center align-items-center">
 
       <div class="border rounded-circle pl-3 pr-3 text-center text-light bg-info">
-        <h4 class="mt-2">M</h4>
+        <h4 class="mt-2">{{imgFont}}</h4>
       </div>
 
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block">{{email}}</a>
       </div>
     </div>
 
@@ -46,9 +46,9 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item" *ngFor="let subMenu of itemMenu.submenu">
-              <a [routerLink]="subMenu.url" class="nav-link " routerLinkActive="active bg-indigo">
+              <a [routerLink]="subMenu.url" class="nav-link " routerLinkActive="active bg-info">
                 <i class="fas fa-chevron-circle-right nav-icon"></i>
-                
+
                 <p>{{subMenu.titulo}}</p>
               </a>
             </li>
